@@ -1,0 +1,264 @@
+---
+title: "ReproRehab Pod: Getting Started with Data in R"
+subtitle: "Week 2 — Objects, Environment, Packages, and Simple Calculations"
+author: "Madeline Ratoza"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: false
+    code-tools: true
+    theme: cosmo
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# Today: Let's Work With Data
+
+Last week, we learned where things live in RStudio, how code chunks work, and why saving our code matters.
+
+Today we will spend more time **doing R**. Our goal is to take a small dataset, bring it into R, and start answering questions about it.
+
+## Learning goals
+
+By the end of this session, you should be able to:
+
+-   create and recognize objects in R;
+-   use the Environment to see objects in your current session;
+-   explain the difference between installing and loading a package;
+-   import a `.csv` file;
+-   inspect a dataset;
+-   perform simple calculations using variables in a dataset.
+
+# 1. Quick Review: Objects
+
+An **object** is a name we give to something we want R to remember.
+
+```{r}
+my_number <- 10
+my_number
+```
+
+Look at your **Environment** pane. You should now see `my_number`.
+
+The assignment operator `<-` can be read as:
+
+> **Save what is on the right as the name on the left.**
+
+Try another:
+
+```{r}
+number_of_students <- 12
+number_of_students
+```
+
+## Your turn
+
+Create an object called `my_age` and assign it a number.
+
+```{r}
+# Write your code here
+
+```
+
+# 2. Packages: One Important Distinction
+
+Packages add functions and tools to R.
+
+```{r eval=FALSE}
+# Do this once to install a package on your computer
+install.packages("tidyverse")
+
+# Do this when you want to use the package in a session
+library(tidyverse)
+```
+
+> **Install = put it on your computer.**\
+> **Library = make it available in this session.**
+
+We will use packages much more later. For today's work, base R is enough.
+
+# 3. Meet Our Fake Rehab Study
+
+Today's file is `rehab_study.csv`. It is a completely **synthetic dataset** created only for learning.
+
+Each row represents one fictional study participant. Variables include:
+
+-   `participant_id`
+-   `age`
+-   `group`
+-   `baseline_score`
+-   `followup_score`
+-   `visits`
+-   `completed`
+
+Before importing it, open the CSV outside R. **What do you notice?**
+
+# 4. Import the Data
+
+Make sure [`rehab_study.csv`](https://drive.google.com/file/d/1TXFdcLmC8UcCmcqVIWfOowiJB4l-797D/view?usp=drive_link) is saved in the same project/folder you are working in.
+
+```{r}
+rehab_data <- read.csv("rehab_study.csv")
+```
+
+Look at your **Environment**. What changed?
+
+This line brings together several concepts:
+
+-   `rehab_data` = the object we are creating
+-   `<-` = assignment
+-   `read.csv()` = the function
+-   `"rehab_study.csv"` = the file we are asking R to read
+
+# 5. Take a Look at the Data
+
+We should always inspect data after importing it.
+
+```{r}
+head(rehab_data)
+```
+
+```{r}
+names(rehab_data)
+```
+
+```{r}
+dim(rehab_data)
+```
+
+`dim()` gives us the dimensions: **rows × columns**.
+
+```{r}
+summary(rehab_data)
+```
+
+You do not need to understand everything in the summary yet. Ask:
+
+> Does this look like the dataset I expected to import?
+
+# 6. Simple Calculations
+
+We can use `$` to refer to a variable inside our dataset.
+
+```{r}
+mean(rehab_data$age)
+```
+
+Read this as: find `age` inside `rehab_data`, then calculate its mean.
+
+Try:
+
+```{r}
+mean(rehab_data$baseline_score)
+mean(rehab_data$followup_score)
+min(rehab_data$visits)
+max(rehab_data$visits)
+median(rehab_data$age)
+```
+
+# 7. Save a Result as an Object
+
+Instead of only printing a result, we can save it.
+
+```{r}
+average_age <- mean(rehab_data$age)
+average_age
+```
+
+Look at the Environment again. You should now have both `rehab_data` and `average_age`.
+
+> **The saved code is the recipe. The Environment is only what is currently on the counter.**
+
+# 8. Your Turn: Mini Analysis
+
+Work independently or with a partner.
+
+### 1. How many participants are in the dataset?
+
+Hint: What did `dim()` tell us?
+
+```{r}
+# Your code
+
+```
+
+### 2. What is the average age?
+
+```{r}
+# Your code
+
+```
+
+### 3. What is the average baseline score?
+
+```{r}
+# Your code
+
+```
+
+### 4. What is the average follow-up score?
+
+```{r}
+# Your code
+
+```
+
+### 5. What is the maximum number of visits?
+
+```{r}
+# Your code
+
+```
+
+### 6. Create an object called `mean_followup` containing the average follow-up score.
+
+```{r}
+# Your code
+
+```
+
+Check your Environment. Do you see `mean_followup`?
+
+# 9. Optional Challenge
+
+If you finish early:
+
+```{r}
+table(rehab_data$group)
+```
+
+```{r}
+table(rehab_data$completed)
+```
+
+What question does each line answer?
+
+Now try:
+
+```{r}
+mean(rehab_data$followup_score) - mean(rehab_data$baseline_score)
+```
+
+What does that number represent?
+
+> We will learn better ways to compare and manipulate groups of data in later sessions.
+
+# Wrap-Up
+
+Today we went from a **CSV sitting on our computer** to a dataset we could explore and analyze in R.
+
+Can you explain:
+
+-   What is an object?
+-   What does `<-` mean?
+-   What appears in the Environment?
+-   What is the difference between `install.packages()` and `library()`?
+-   What does `read.csv()` do?
+-   What does `$` allow us to access?
+-   Why should we save the code that produced our results?
+
+# 
